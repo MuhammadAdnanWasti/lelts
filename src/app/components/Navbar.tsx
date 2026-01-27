@@ -76,6 +76,12 @@ const Navbar = () => {
               Login
             </Link>
             <Link
+              href="/signup"
+              className="px-5 py-2.5 text-gray-700 hover:text-gray-900 font-medium text-sm border border-gray-300 rounded-lg hover:border-gray-400 transition-all"
+            >
+              Sign Up
+            </Link>
+            <Link
               href="/start-mock"
               className="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-lg shadow-sm hover:shadow-md transition-all"
             >
@@ -138,6 +144,13 @@ const Navbar = () => {
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Login
+              </Link>
+              <Link
+                href="/signup"
+                className="block px-4 py-3 text-center text-gray-700 hover:text-gray-900 font-medium text-base border border-gray-300 rounded-lg hover:border-gray-400 transition-all"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Sign Up
               </Link>
               <Link
                 href="/start-mock"
