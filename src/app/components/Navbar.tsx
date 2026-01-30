@@ -97,7 +97,7 @@ const Navbar = () => {
                       className="absolute right-0 mt-3 w-64 bg-white rounded-[1.5rem] shadow-2xl border border-slate-100 p-2 z-50"
                     >
                       <div className="px-4 py-3 mb-2 bg-slate-50 rounded-xl">
-                        <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">Signed in as</p>
+                        <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">Login as</p>
                         <p className="text-sm font-black text-slate-900 truncate">{session.user?.email}</p>
                       </div>
                       <Link href="/dashboard" className="flex items-center gap-3 px-4 py-3 text-sm font-bold text-slate-600 hover:bg-blue-50 hover:text-blue-600 rounded-xl transition-all">
