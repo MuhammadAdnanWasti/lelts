@@ -9,7 +9,7 @@ export default function ProfilePage() {
   const [isEditing, setIsEditing] = useState(false);
 
   // Mock data - in a real app, this would come from an API
-  const [userData, setUserData] = useState({
+  const [userData, _setUserData] = useState({
     phone: "+1 (555) 123-4567",
     location: "New York, USA",
     bio: "Aspiring student preparing for IELTS Academic. Targeting Band 7.5+ for university admission in Canada.",

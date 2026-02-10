@@ -8,7 +8,6 @@ import {
   FileText,
   Settings,
   Users,
-  LogOut,
   Menu,
   X,
   GraduationCap,
