@@ -1,174 +1,177 @@
-import Link from 'next/link';
+"use client";
+
+import Link from "next/link";
+import { motion } from "framer-motion";
+import { Users, Globe, Target, Shield, ArrowRight, Award, Zap } from "lucide-react";
 
 export default function AboutPage() {
   const stats = [
-    { label: 'Students Helped', value: '50,000+' },
-    { label: 'Mock Tests Taken', value: '1M+' },
-    { label: 'Target Scores Achieved', value: '95%' },
-    { label: 'Expert Instructors', value: '100+' },
-  ];
-
-  const features = [
-    {
-      title: 'Our Mission',
-      description: 'To democratize IELTS preparation by providing high-quality, accessible resources to students worldwide.',
-      icon: (
-        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-        </svg>
-      ),
-    },
-    {
-      title: 'Our Vision',
-      description: 'To become the global leader in language proficiency test preparation through innovation and technology.',
-      icon: (
-        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-        </svg>
-      ),
-    },
-    {
-      title: 'Our Values',
-      description: 'Excellence, Integrity, Student-Centricity, and Continuous Innovation guide everything we do.',
-      icon: (
-        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-        </svg>
-      ),
-    },
+    { label: 'Students Helped', value: '50K+', icon: <Users className="w-5 h-5" /> },
+    { label: 'Mock Tests Taken', value: '1M+', icon: <Zap className="w-5 h-5" /> },
+    { label: 'Success Rate', value: '95%', icon: <Award className="w-5 h-5" /> },
+    { label: 'Global Reach', value: '50+', icon: <Globe className="w-5 h-5" /> },
   ];
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900">
-      {/* Hero Section */}
-      <div className="relative bg-blue-600 dark:bg-blue-800 py-20 lg:py-28 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-600 to-blue-900 opacity-90"></div>
-        <div className="absolute inset-0">
-          <svg className="absolute right-0 bottom-0 h-full w-1/2 text-white/5 transform translate-x-1/2" fill="currentColor" viewBox="0 0 100 100" preserveAspectRatio="none">
-            <polygon points="50,0 100,0 50,100 0,100" />
-          </svg>
-        </div>
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl lg:text-5xl font-extrabold text-white tracking-tight mb-6">
-            Empowering Your Global Journey
-          </h1>
-          <p className="text-xl text-blue-100 max-w-3xl mx-auto mb-10">
-            We are dedicated to helping students and professionals achieve their dreams through comprehensive IELTS preparation.
-          </p>
-        </div>
-      </div>
+    <div className="min-h-screen bg-white font-sans pt-20">
+      
+      {/* 1. Hero Section - Clean & Professional */}
+      <section className="relative py-12 lg:py-20 overflow-hidden">
+        {/* Abstract Background */}
+        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-50 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 opacity-60" />
+        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-indigo-50 rounded-full blur-3xl translate-y-1/3 -translate-x-1/3 opacity-60" />
 
-      {/* Stats Section */}
-      <div className="-mt-16 relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-8">
-          {stats.map((stat, index) => (
-            <div key={index} className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 text-center border border-gray-100 dark:border-gray-700">
-              <div className="text-3xl lg:text-4xl font-bold text-blue-600 dark:text-blue-400 mb-2">{stat.value}</div>
-              <div className="text-sm lg:text-base text-gray-600 dark:text-gray-300 font-medium">{stat.label}</div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Mission & Vision Section */}
-      <div className="py-20 lg:py-28">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">Who We Are</h2>
-            <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-              Founded by IELTS experts and educators, we understand the challenges of language testing and have built a platform to solve them.
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <span className="inline-block py-1 px-3 rounded-full bg-blue-100 text-blue-700 text-sm font-semibold tracking-wide uppercase mb-6">
+              Our Mission
+            </span>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-900 mb-6 tracking-tight leading-tight">
+              Empowering Your <br className="hidden md:block" />
+              <span className="text-blue-600">Global Journey</span>
+            </h1>
+            <p className="text-lg md:text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
+              We are dedicated to democratizing IELTS preparation by combining expert pedagogy with cutting-edge AI technology to help you achieve your dream score.
             </p>
-          </div>
+          </motion.div>
+        </div>
+      </section>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {features.map((feature, index) => (
-              <div key={index} className="relative group p-8 bg-gray-50 dark:bg-gray-800 rounded-2xl hover:bg-blue-50 dark:hover:bg-gray-700 transition-colors duration-300">
-                <div className="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 bg-blue-100 dark:bg-blue-900/20 rounded-full opacity-50 group-hover:scale-110 transition-transform duration-300"></div>
-                <div className="relative">
-                  <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center mb-6 shadow-md">
-                    {feature.icon}
-                  </div>
-                  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">{feature.title}</h3>
-                  <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                    {feature.description}
-                  </p>
+      {/* 2. Stats Grid - Floating Style */}
+      <section className="py-10 px-4 sm:px-6 lg:px-8 -mt-10 relative z-20">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
+            {stats.map((stat, index) => (
+              <motion.div 
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1, duration: 0.5 }}
+                className="bg-white p-6 rounded-2xl shadow-lg border border-slate-100 text-center hover:shadow-xl transition-shadow"
+              >
+                <div className="inline-flex p-3 bg-blue-50 text-blue-600 rounded-xl mb-3">
+                  {stat.icon}
                 </div>
-              </div>
+                <div className="text-3xl font-bold text-slate-900 mb-1">{stat.value}</div>
+                <div className="text-sm font-medium text-slate-500">{stat.label}</div>
+              </motion.div>
             ))}
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* Story Section */}
-      <div className="bg-white dark:bg-gray-900 py-16 lg:py-24 border-t border-gray-100 dark:border-gray-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="lg:grid lg:grid-cols-2 lg:gap-16 items-center">
-            <div className="mb-12 lg:mb-0">
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl">
-                <div className="aspect-w-4 aspect-h-3 bg-gray-200 dark:bg-gray-700 h-[400px] w-full flex items-center justify-center">
-                  {/* Placeholder for an actual image */}
-                  <div className="text-gray-400 dark:text-gray-500 flex flex-col items-center">
-                     <svg className="w-20 h-20 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                      </svg>
-                     <span>Team Image Placeholder</span>
+      {/* 3. Story Section - Split Layout */}
+      <section className="py-24 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            {/* Left: Image Grid */}
+            <div className="grid grid-cols-2 gap-4">
+               <div className="space-y-4 mt-8">
+                  <div className="h-48 bg-slate-200 rounded-2xl overflow-hidden">
+                     {/* Placeholder for Team/Office Image */}
+                     <div className="w-full h-full bg-cover bg-center bg-[url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80')]"></div>
                   </div>
-                </div>
-              </div>
+                  <div className="h-64 bg-slate-200 rounded-2xl overflow-hidden">
+                     <div className="w-full h-full bg-cover bg-center bg-[url('https://images.unsplash.com/photo-1531482615713-2afd69097998?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80')]"></div>
+                  </div>
+               </div>
+               <div className="space-y-4">
+                  <div className="h-64 bg-slate-200 rounded-2xl overflow-hidden">
+                     <div className="w-full h-full bg-cover bg-center bg-[url('https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80')]"></div>
+                  </div>
+                  <div className="h-48 bg-slate-200 rounded-2xl overflow-hidden">
+                     <div className="w-full h-full bg-cover bg-center bg-[url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80')]"></div>
+                  </div>
+               </div>
             </div>
-            <div>
-              <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">Our Story</h2>
-              <div className="space-y-6 text-lg text-gray-600 dark:text-gray-300">
-                <p>
-                  It all started with a simple observation: students were struggling not because of their English ability, but because of a lack of proper guidance and practice resources.
-                </p>
-                <p>
-                  In 2023, a group of former IELTS examiners and tech enthusiasts came together with a shared vision: to create a platform that makes high-quality IELTS preparation accessible to everyone, everywhere.
-                </p>
-                <p>
-                  Today, IELTS Practice Pro is trusted by thousands of students from over 50 countries. We combine cutting-edge technology with pedagogical expertise to deliver personalized learning experiences that get results.
-                </p>
-              </div>
-              <div className="mt-8">
-                <Link
-                  href="/contact"
-                  className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 transition-colors"
-                >
-                  Contact Us
-                  <svg className="ml-2 -mr-1 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                  </svg>
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      {/* CTA Section */}
-      <div className="bg-gray-50 dark:bg-gray-800 py-16 lg:py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">Ready to start your journey?</h2>
-          <p className="text-xl text-gray-600 dark:text-gray-400 mb-8 max-w-2xl mx-auto">
-            Join thousands of successful students who achieved their dream IELTS score with us.
-          </p>
-          <div className="flex justify-center gap-4">
-            <Link
-              href="/signup"
-              className="px-8 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors shadow-lg hover:shadow-xl"
-            >
-              Get Started Free
-            </Link>
-            <Link
-              href="/start-mock"
-              className="px-8 py-3 bg-white dark:bg-gray-700 text-gray-900 dark:text-white font-semibold rounded-lg border border-gray-200 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors"
-            >
-              Take a Mock Test
-            </Link>
+            {/* Right: Content */}
+            <div>
+              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">
+                Bridging the Gap Between <br />
+                <span className="text-blue-600">Ambition & Achievement</span>
+              </h2>
+              <div className="space-y-6 text-lg text-slate-600 leading-relaxed">
+                <p>
+                  It started with a simple observation: talented students were missing out on global opportunities not because of their potential, but because of a lack of proper guidance for the IELTS exam.
+                </p>
+                <p>
+                  In 2023, we assembled a team of former examiners, linguists, and AI engineers to solve this. Our goal was to create a platform that offers the personalized feedback of a private tutor at a fraction of the cost.
+                </p>
+                <p>
+                  Today, we&apos;re proud to be the trusted partner for thousands of test-takers worldwide, helping them turn their study abroad and immigration dreams into reality.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
+
+      {/* 4. Values Section */}
+      <section className="py-24 bg-slate-50 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto text-center mb-16">
+          <h2 className="text-3xl font-bold text-slate-900 mb-4">Core Values That Drive Us</h2>
+          <p className="text-slate-600 max-w-2xl mx-auto">We believe in integrity, innovation, and putting the student first in everything we do.</p>
+        </div>
+        
+        <div className="max-w-7xl mx-auto grid md:grid-cols-3 gap-8">
+          {[
+            {
+              title: "Student-Centricity",
+              desc: "Every feature we build starts with one question: 'How does this help the student succeed?'",
+              icon: <Target className="w-8 h-8 text-white" />,
+              color: "bg-blue-600"
+            },
+            {
+              title: "Uncompromising Quality",
+              desc: "We adhere to the strict standards of official IELTS exams to ensure your practice is authentic.",
+              icon: <Shield className="w-8 h-8 text-white" />,
+              color: "bg-indigo-600"
+            },
+            {
+              title: "Continuous Innovation",
+              desc: "We leverage the latest AI technology to provide feedback that gets smarter every day.",
+              icon: <Zap className="w-8 h-8 text-white" />,
+              color: "bg-purple-600"
+            }
+          ].map((item, i) => (
+            <div key={i} className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-all text-left">
+              <div className={`w-14 h-14 ${item.color} rounded-xl flex items-center justify-center mb-6 shadow-lg shadow-blue-900/10`}>
+                {item.icon}
+              </div>
+              <h3 className="text-xl font-bold text-slate-900 mb-3">{item.title}</h3>
+              <p className="text-slate-600 leading-relaxed">{item.desc}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* 5. CTA Section */}
+      <section className="py-20 px-4 text-center">
+        <div className="max-w-4xl mx-auto bg-slate-900 rounded-[2.5rem] p-12 md:p-20 relative overflow-hidden shadow-2xl">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/20 blur-[80px] rounded-full"></div>
+          
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 relative z-10">
+            Join the Future of IELTS Prep
+          </h2>
+          <p className="text-lg text-slate-300 mb-10 max-w-xl mx-auto relative z-10">
+            Don&apos;t let the IELTS exam stand in your way. Start practicing with the most advanced simulator today.
+          </p>
+          <Link
+            href="/signup"
+            className="inline-flex items-center px-8 py-4 bg-white text-slate-900 font-bold rounded-xl hover:bg-blue-50 transition-colors relative z-10 group"
+          >
+            Get Started Free
+            <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+          </Link>
+        </div>
+      </section>
+
     </div>
   );
 }
