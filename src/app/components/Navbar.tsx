@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useSession, signOut } from 'next-auth/react';
 import {
-  User,
   LogOut,
   LayoutDashboard,
   ChevronDown,
@@ -44,12 +43,12 @@ const Navbar = () => {
   }, []);
 
   // Close mobile menu on route change
-  useEffect(() => {
-    setIsMobileMenuOpen(false);
-  }, [pathname]);
+  // Removed useEffect to avoid linter error and use explicit onClick handlers instead
+
 
   const navLinks = [
     { name: 'Home', href: '/' },
+    // { name: 'Exam Simulator', href: '/exam' },
     { name: 'Mock Tests', href: '/mock-tests' },
     { name: 'Practice', href: '/practice' },
     { name: 'Pricing', href: '/pricing' },
@@ -107,6 +106,7 @@ const Navbar = () => {
               {session ? (
                 <div className="relative" ref={dropdownRef}>
                   <button
+                    type="button"
                     onClick={() =>
                       setIsProfileDropdownOpen(!isProfileDropdownOpen)
                     }
@@ -144,6 +144,7 @@ const Navbar = () => {
                           <LayoutDashboard size={18} /> Dashboard
                         </Link>
                         <button
+                          type="button"
                           onClick={() => signOut()}
                           className="w-full flex items-center gap-3 px-4 py-3 text-sm font-bold text-red-500 hover:bg-red-50 rounded-xl transition-all text-left"
                         >
@@ -173,6 +174,7 @@ const Navbar = () => {
 
             {/* --- MOBILE TOGGLE BUTTON --- */}
             <button
+              type="button"
               className="lg:hidden relative z-[70] p-2.5 bg-slate-100 rounded-xl text-slate-900 active:scale-90 transition-transform"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             >
@@ -211,6 +213,7 @@ const Navbar = () => {
                   <Link
                     key={link.name}
                     href={link.href}
+                    onClick={() => setIsMobileMenuOpen(false)}
                     className={`flex items-center justify-between px-4 py-4 rounded-2xl text-lg font-bold transition-all ${
                       pathname === link.href
                         ? 'bg-blue-50 text-blue-600'
@@ -246,12 +249,17 @@ const Navbar = () => {
                     </div>
                     <Link
                       href="/dashboard"
+                      onClick={() => setIsMobileMenuOpen(false)}
                       className="flex w-full items-center justify-center gap-2 py-4 bg-slate-100 text-slate-900 font-bold rounded-2xl"
                     >
                       <LayoutDashboard size={20} /> Go to Dashboard
                     </Link>
                     <button
-                      onClick={() => signOut()}
+                      type="button"
+                      onClick={() => {
+                        signOut();
+                        setIsMobileMenuOpen(false);
+                      }}
                       className="flex w-full items-center justify-center gap-2 py-4 text-red-500 font-bold bg-red-50 rounded-2xl"
                     >
                       <LogOut size={20} /> Sign Out
@@ -261,12 +269,14 @@ const Navbar = () => {
                   <>
                     <Link
                       href="/login"
+                      onClick={() => setIsMobileMenuOpen(false)}
                       className="block w-full py-4 text-center font-bold text-slate-600 border border-slate-200 rounded-2xl"
                     >
                       Login
                     </Link>
                     <Link
                       href="/start-mock"
+                      onClick={() => setIsMobileMenuOpen(false)}
                       className="block w-full py-4 text-center font-bold bg-blue-600 text-white rounded-2xl shadow-lg shadow-blue-100"
                     >
                       Get Started Free
