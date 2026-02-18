@@ -4,14 +4,16 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
   LayoutDashboard,
-  BookOpen,
   FileText,
-  Settings,
   Users,
   Menu,
   X,
   GraduationCap,
   BarChart,
+  Package,
+  CreditCard,
+  ClipboardList,
+  Image,
 } from "lucide-react";
 import { useState } from "react";
 import { useSession } from "next-auth/react";
@@ -26,26 +28,34 @@ export default function Sidebar() {
   const commonLinks = [
     { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
     { name: "Profile", href: "/dashboard/profile", icon: Users },
-    { name: "Settings", href: "/dashboard/settings", icon: Settings },
+    
   ];
 
   const studentLinks = [
-    { name: "My Practice", href: "/dashboard/practice", icon: BookOpen },
-    { name: "Mock Tests", href: "/dashboard/mock-tests", icon: FileText },
+  
+    { name: "Mock Tests", href: "/exam", icon: FileText },
     { name: "Progress", href: "/dashboard/progress", icon: BarChart },
+  ];
+
+  const staffAdminLinks = [
+    { name: "Assignments", href: "/dashboard/assignments", icon: ClipboardList },
+    { name: "Products", href: "/dashboard/products", icon: Package },
+    { name: "Orders", href: "/dashboard/orders", icon: CreditCard },
+    { name: "Analytics", href: "/dashboard/analytics", icon: BarChart },
   ];
 
   const adminLinks = [
     { name: "Manage Users", href: "/dashboard/admin/users", icon: Users },
-    { name: "Content", href: "/dashboard/admin/content", icon: FileText },
-    { name: "Analytics", href: "/dashboard/admin/analytics", icon: BarChart },
+    { name: "Banner Management", href: "/dashboard/admin/banners", icon: Image },
   ];
 
   let links = [...commonLinks];
   if (role === "student") {
     links = [...commonLinks.slice(0, 1), ...studentLinks, ...commonLinks.slice(1)];
+  } else if (role === "staff") {
+    links = [...commonLinks.slice(0, 1), ...staffAdminLinks, ...commonLinks.slice(1)];
   } else if (["admin", "super-admin"].includes(role)) {
-    links = [...commonLinks.slice(0, 1), ...adminLinks, ...commonLinks.slice(1)];
+    links = [...commonLinks.slice(0, 1), ...staffAdminLinks, ...adminLinks, ...commonLinks.slice(1)];
   }
 
   return (

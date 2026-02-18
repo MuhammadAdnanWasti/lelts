@@ -147,6 +147,28 @@ export default function UserManagementPage() {
     user.email.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  // Check if current user can modify the target user
+  const canModifyUser = (targetUser: UserType) => {
+    const currentRole = session?.user?.role;
+    
+    // Can't modify yourself
+    if (targetUser._id === session?.user?.id) {
+      return false;
+    }
+    
+    // Super-admin can modify everyone
+    if (currentRole === "super-admin") {
+      return true;
+    }
+    
+    // Admin can only modify students and staff, not other admins or super-admins
+    if (currentRole === "admin") {
+      return targetUser.role === "student" || targetUser.role === "staff";
+    }
+    
+    return false;
+  };
+
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
@@ -245,39 +267,63 @@ export default function UserManagementPage() {
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <select
-                        aria-label="Select user role"
-                        value={user.role}
-                        onChange={(e) => handleRoleChange(user._id, e.target.value)}
-                        className={`text-sm rounded-full px-3 py-1 font-semibold border-0 focus:ring-2 focus:ring-blue-500 cursor-pointer ${
-                          user.role === 'admin' || user.role === 'super-admin'
-                            ? 'bg-purple-100 text-purple-800'
-                            : user.role === 'staff'
-                            ? 'bg-blue-100 text-blue-800'
-                            : 'bg-green-100 text-green-800'
-                        }`}
-                        disabled={user._id === session?.user?.id}
-                      >
-                        <option value="student">Student</option>
-                        <option value="staff">Staff</option>
-                        <option value="admin">Admin</option>
-                        <option value="super-admin">Super Admin</option>
-                      </select>
+                      {canModifyUser(user) ? (
+                        <select
+                          aria-label="Select user role"
+                          value={user.role}
+                          onChange={(e) => handleRoleChange(user._id, e.target.value)}
+                          className={`text-sm rounded-full px-3 py-1 font-semibold border-0 focus:ring-2 focus:ring-blue-500 cursor-pointer ${
+                            user.role === 'admin' || user.role === 'super-admin'
+                              ? 'bg-purple-100 text-purple-800'
+                              : user.role === 'staff'
+                              ? 'bg-blue-100 text-blue-800'
+                              : 'bg-green-100 text-green-800'
+                          }`}
+                        >
+                          <option value="student">Student</option>
+                          <option value="staff">Staff</option>
+                          {session?.user?.role === "super-admin" && (
+                            <>
+                              <option value="admin">Admin</option>
+                              <option value="super-admin">Super Admin</option>
+                            </>
+                          )}
+                        </select>
+                      ) : (
+                        <span
+                          className={`text-sm rounded-full px-3 py-1 font-semibold inline-block ${
+                            user.role === 'admin' || user.role === 'super-admin'
+                              ? 'bg-purple-100 text-purple-800'
+                              : user.role === 'staff'
+                              ? 'bg-blue-100 text-blue-800'
+                              : 'bg-green-100 text-green-800'
+                          }`}
+                        >
+                          {user.role === 'super-admin' ? 'Super Admin' : user.role.charAt(0).toUpperCase() + user.role.slice(1)}
+                        </span>
+                      )}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                       {new Date(user.createdAt).toLocaleDateString()}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                      <button
-                        onClick={() => handleDeleteUser(user._id)}
-                        disabled={user._id === session?.user?.id}
-                        className={`text-red-600 hover:text-red-900 p-2 rounded-full hover:bg-red-50 transition-colors ${
-                          user._id === session?.user?.id ? 'opacity-50 cursor-not-allowed' : ''
-                        }`}
-                        title="Delete User"
-                      >
-                        <Trash2 className="w-5 h-5" />
-                      </button>
+                      {canModifyUser(user) ? (
+                        <button
+                          onClick={() => handleDeleteUser(user._id)}
+                          className="text-red-600 hover:text-red-900 p-2 rounded-full hover:bg-red-50 transition-colors"
+                          title="Delete User"
+                        >
+                          <Trash2 className="w-5 h-5" />
+                        </button>
+                      ) : (
+                        <button
+                          disabled
+                          className="text-gray-400 p-2 rounded-full cursor-not-allowed"
+                          title="Cannot delete this user"
+                        >
+                          <Trash2 className="w-5 h-5" />
+                        </button>
+                      )}
                     </td>
                   </tr>
                 ))
@@ -352,9 +398,18 @@ export default function UserManagementPage() {
                 >
                   <option value="student">Student</option>
                   <option value="staff">Staff</option>
-                  <option value="admin">Admin</option>
-                  <option value="super-admin">Super Admin</option>
+                  {session?.user?.role === "super-admin" && (
+                    <>
+                      <option value="admin">Admin</option>
+                      <option value="super-admin">Super Admin</option>
+                    </>
+                  )}
                 </select>
+                {session?.user?.role === "admin" && (
+                  <p className="text-xs text-gray-500 mt-1">
+                    As an admin, you can only create Student and Staff accounts
+                  </p>
+                )}
               </div>
 
               <div className="pt-4 flex justify-end space-x-3">
