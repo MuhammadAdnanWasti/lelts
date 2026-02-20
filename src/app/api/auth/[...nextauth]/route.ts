@@ -1,13 +1,12 @@
 import NextAuth, { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import GoogleProvider from 'next-auth/providers/google'; // ১. গুগল প্রোভাইডার ইম্পোর্ট
+import GoogleProvider from 'next-auth/providers/google';
 import bcrypt from 'bcryptjs';
 import connectDB from '@/lib/mongodb';
 import User from '@/models/User';
 
 export const authOptions: NextAuthOptions = {
   providers: [
-    // ২. গুগল প্রোভাইডার যোগ করা হয়েছে
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID as string,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
@@ -52,18 +51,17 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    // ৩. গুগল দিয়ে লগইন করলে ডাটাবেজে ইউজার চেক/সেভ করার জন্য signIn কলব্যাক
     async signIn({ user, account }) {
       if (account?.provider === 'google') {
         await connectDB();
         try {
           const userExists = await User.findOne({ email: user.email });
           if (!userExists) {
-            // নতুন ইউজার হলে ডাটাবেজে সেভ হবে
+            
             await User.create({
-              name: user.name,
-              email: user.email,
-              role: 'user', // ডিফল্ট রোল
+              name: user.name ?? 'New User',
+              email: user.email as string,
+              role: 'user',
             });
           }
           return true;
@@ -74,12 +72,11 @@ export const authOptions: NextAuthOptions = {
       }
       return true;
     },
-    async jwt({ token, user, account }) {
+    async jwt({ token, user }) {
       if (user) {
         token.role = user.role;
         token.id = user.id;
       }
-      // গুগল ইউজারের ক্ষেত্রে ডাটাবেজ থেকে রোল খুঁজে বের করা
       if (!token.role && token.email) {
         await connectDB();
         const dbUser = await User.findOne({ email: token.email });
@@ -92,7 +89,7 @@ export const authOptions: NextAuthOptions = {
     },
     async session({ session, token }) {
       if (session?.user) {
-        session.user.role = token.role;
+        session.user.role = token.role as string;
         session.user.id = token.id as string;
       }
       return session;

@@ -87,7 +87,7 @@ function LoginForm() {
         </p>
       </div>
 
-      {/* Official Google Button with onClick Handler */}
+    
       <button
         type="button"
         onClick={() => signIn('google', { callbackUrl: '/' })}
